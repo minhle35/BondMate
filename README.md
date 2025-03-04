@@ -1,7 +1,7 @@
 # BondMate – A Smart Bonding Management App 🤝
 BondMate helps you stay connected with friends and family by managing birthdays, catch-ups, and bill-sharing in one place.
 
-## 🚀 Tech Stack:
+## Tech Stack:
 - Frontend: Vue 3 + TypeScript + Tailwind CSS + Vite
 - Backend: Express.js + MongoDB
 - Package Manager: pnpm
@@ -9,15 +9,15 @@ BondMate helps you stay connected with friends and family by managing birthdays,
 
 ## 📌 Features
 ### Stage 1: Minimum Viable Product (MVP)
-- 🎂 Birthday Reminders – Never forget a friend's birthday again!
-- ☕ Catch-Up Scheduling – Plan meetups and get reminders.
-- 💰 Bill Splitting – Track shared expenses with friends.
-- 🔔 Notifications – Email and push notifications for events.
-- 📝 Basic Authentication – Sign up, login, and manage accounts.
+- Birthday Reminders – Never forget a friend's birthday again!
+- Catch-Up Scheduling – Plan meetups and get reminders.
+- Bill Splitting – Track shared expenses with friends.
+- Notifications – Email and push notifications for events.
+- Basic Authentication – Sign up, login, and manage accounts.
 
 
 ### Stage 2: Future Enhancements 🔜
-- 📊 User Dashboard – View upcoming events and expenses.
+- User Dashboard – View upcoming events and expenses.
 - Azure Deployment – Fully hosted on Azure Web Apps & Static Web Apps.
 - AI-Powered Gift Suggestions – Personalized gift ideas for birthdays.
 - Geolocation-Based Catch-Ups – Find friends nearby and suggest meeting points.
@@ -26,7 +26,7 @@ BondMate helps you stay connected with friends and family by managing birthdays,
 - Mobile App (Vue Native) – Extend BondMate to iOS & Android.
 - Social Streaks & Leaderboards – Track friendships with engagement scores.
 
-### 🚀 Getting Started
+### Getting Started
 1️⃣ Clone the Repository
 ```
 git clone https://github.com/your-username/bondmate.git
@@ -100,7 +100,7 @@ Run frontend tests:
 ```
 pnpm run test
 ```
-🚀 Deployment
+Deployment
 Backend (Azure Web Apps)
 
 ```
