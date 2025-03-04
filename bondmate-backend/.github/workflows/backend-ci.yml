@@ -1,0 +1,49 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Run Tests & Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: pnpm install
+        working-directory: bondmate-backend
+
+      - name: Lint Code
+        run: pnpm run lint
+        working-directory: bondmate-backend
+
+      - name: Run Tests
+        run: pnpm test
+        working-directory: bondmate-backend
+
+  deploy:
+    name: Deploy to Azure
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "bondmate-backend"
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: bondmate-backend
