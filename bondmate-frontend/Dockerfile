@@ -3,17 +3,18 @@ FROM node:18-alpine
 # App directory
 WORKDIR /app
 
-# Copy the app package and package-lock.json file
 COPY package*.json ./
-COPY . .
 
 RUN npm install -g pnpm
 RUN pnpm install 
 
+COPY . .
+
 EXPOSE 3000
 
+ENV VITE_API_URL=http://localhost:5000/api
 
 #Start the app using
-CMD ["pnpm", "start"]
+CMD ["pnpm", "run", "dev", "--host", "--port", "3000"]
 
 

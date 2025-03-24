@@ -55,8 +55,8 @@ pnpm install
 Create a `.env` file in the root directory:
 ```env
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/bondmate
-JWT_SECRET=
+MONGO_URI=mongodb+srv://20820099:rNXVtbXSiaSqxja6@bondmate.iy8r3.mongodb.net/?retryWrites=true&w=majority&appName=bondmate
+JWT_SECRET=rNXVtbXSiaSqxja6
 AZURE_STORAGE_CONNECTION_STRING=
 FIREBASE_SERVER_KEY=
 ```

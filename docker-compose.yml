@@ -4,19 +4,43 @@ services:
   frontend:
     build: 
       context: ./bondmate-frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - backend
     environment:
-      - REACT_APP_API_URL=http://localhost:5000/api
+      - VITE_API_URL=http://localhost:5000
+    volumes:
+      - ./bondmate-frontend:/app
+      - /app/node_modules
+    restart: unless-stopped
 
   backend:
     build: 
       context: ./bondmate-backend
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
-      - SERVER_PORT=5000
+      - PORT=5000
       - MONGO_URI=mongodb+srv://20820099:rNXVtbXSiaSqxja6@bondmate.iy8r3.mongodb.net/?retryWrites=true&w=majority&appName=bondmate
-      - NODE_ENV=production
+      - JWT_SECRET=rNXVtbXSiaSqxja6
+      - NODE_ENV=development
+    volumes:
+      - ./bondmate-backend:/app
+      - /app/node_modules
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
