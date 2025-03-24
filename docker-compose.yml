@@ -44,3 +44,5 @@ services:
 
 volumes:
   mongodb_data:
+
+  #npm
