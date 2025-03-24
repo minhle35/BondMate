@@ -9,7 +9,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: "http://localhost:3000" 
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
@@ -21,8 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    const MONGO_URI = "mongodb+srv://20820099:rNXVtbXSiaSqxja6@bondmate.iy8r3.mongodb.net/?retryWrites=true&w=majority&appName=bondmate";
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB connected successfully");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
