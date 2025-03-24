@@ -1,8 +1,18 @@
+
 # syntax=docker.io/docker/dockerfile:1
+
+FROM node:18-alpine
+
+# App directory
+WORKDIR /app
+
+COPY package*.json ./
+
 
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm
+
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -22,10 +32,8 @@ RUN pnpm install --frozen-lockfile
 # COPY . .
 
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED=1
+ENV VITE_API_URL=http://localhost:5000/api
+
 
 # below is stuff needed production but not for dev having issues with it currently
 # RUN \

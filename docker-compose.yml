@@ -28,13 +28,14 @@ services:
   frontend:
     build:
       context: ./bondmate-frontend
+      dockerfile: Dockerfile
     ports:
       - "${FRONTEND_PORT}:3000"
     depends_on:
       - backend
     environment:
+
       - VITE_API_URL=http://localhost:${BACKEND_PORT}/api
       - NEXT_TELEMETRY_DISABLED=${NEXT_TELEMETRY_DISABLED}
-
 volumes:
   mongodb_data:
