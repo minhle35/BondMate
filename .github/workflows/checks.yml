@@ -1,0 +1,60 @@
+name: Run Tests
+
+on:
+  push:
+    branches: ['*']  # Runs on all branches
+  pull_request:
+    branches: ['*']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
+      with:
+        version: "latest"
+
+    - name: Install dependencies
+      run: uv sync
+
+    - name: Run unit tests
+      run: uv run pytest tests/unit/ -v
+      # Adjust path if your unit tests are in a different location
+
+    - name: Start Docker Compose services
+      run: docker-compose up -d
+      # This assumes your docker-compose.yml is in the root directory
+
+    - name: Wait for services to be ready
+      run: |
+        echo "Waiting for services to start..."
+        sleep 30
+        # Add health checks here if needed, for example:
+        # docker-compose exec -T your-service-name curl -f http://localhost:8000/health || exit 1
+
+    - name: Run integration tests
+      run: uv run pytest tests/integration/ -v
+
+    - name: Stop Docker Compose services
+      if: always()  # Ensures cleanup happens even if tests fail
+      run: docker-compose down -v
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: |
+          pytest-report.xml
+          coverage.xml
+        retention-days: 30
